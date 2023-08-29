@@ -1,0 +1,18 @@
+module(name = "lexy_tests")
+
+bazel_dep(name = "rules_cc", version = "0.0.8")
+bazel_dep(name = "bazel_skylib", version = "1.4.2")
+bazel_dep(name = "lexy")
+bazel_dep(name = "doctest")
+
+local_path_override(
+    module_name = "lexy",
+    path = "..",
+)
+
+# Temporary until https://github.com/doctest/doctest/pull/797 is merged and published
+git_override(
+    module_name = "doctest",
+    remote = "https://github.com/zaucy/doctest",
+    commit = "006d692babd2400498daf48a6acfc6763946b2df",
+)

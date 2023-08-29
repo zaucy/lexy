@@ -1,0 +1,16 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load("@bazel_skylib//lib:selects.bzl", "selects")
+load("//bazel:copts.bzl", "LEXY_COPTS")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "lexy",
+    includes = ["include"],
+    hdrs = glob(["include/**/*.hpp"]),
+    srcs = glob(["src/**/*.cpp"]),
+    copts = LEXY_COPTS,
+    defines = [
+        "LEXY_HAS_UNICODE_DATABASE=1",
+    ],
+)

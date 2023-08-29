@@ -4,3 +4,9 @@ docs/content/learn/changelog.adoc
 docs/static/download/*.zip
 docs/public/
 docs/resources/
+
+# bazel
+/bazel-*
+/tests/bazel-*
+/examples/bazel-*
+user.bazelrc

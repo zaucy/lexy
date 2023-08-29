@@ -1,0 +1,23 @@
+load("@rules_cc//cc:defs.bzl", "cc_test")
+load("@bazel_skylib//lib:selects.bzl", "selects")
+
+_EXAMPLES = [
+    "calculator",
+    "config",
+    "email",
+]
+
+[cc_test(
+    name = example,
+    srcs = ["{}.cpp".format(example)],
+    deps = ["@lexy"],
+    copts = selects.with_or({
+        ("//conditions:default", "@rules_cc//cc/compiler:clang", "@rules_cc//cc/compiler:gcc", "@rules_cc//cc/compiler:mingw-gcc"): [
+            "-std=c++20",
+        ],
+        ("@rules_cc//cc/compiler:msvc-cl", "@rules_cc//cc/compiler:clang-cl"): [
+            "/std:c++20",
+            "/permissive-",
+        ],
+    }),
+) for example in _EXAMPLES]

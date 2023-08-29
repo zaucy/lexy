@@ -1,0 +1,15 @@
+load("@rules_cc//cc:defs.bzl", "cc_test")
+load("@lexy//bazel:copts.bzl", "LEXY_COPTS")
+
+cc_test(
+    name = "lexy",
+    srcs = select({
+        "@rules_cc//cc/compiler:msvc-cl": glob(
+            ["**/*.cpp", "**/*.hpp"],
+            exclude = ["detail/string_view.cpp", "dsl/literal.cpp"],
+        ),
+        "//conditions:default": glob(["**/*.cpp", "**/*.hpp"]),
+    }),
+    deps = ["//:doctest_main"],
+    copts = LEXY_COPTS,
+)
